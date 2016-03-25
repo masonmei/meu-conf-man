@@ -3,7 +3,6 @@ package com.baidu.oped.iop.m4.controller;
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,13 +34,15 @@ public class AppInfoControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        this.mvc = MockMvcBuilders.webAppContextSetup(context).build();
+        this.mvc = MockMvcBuilders.webAppContextSetup(context)
+                .build();
     }
 
     @Test
     public void testGetApplicationInfo() throws Exception {
-        mvc.perform(get("/application/info")).andExpect(status().isOk()).andDo(print()).andExpect(content()
-                .json("{\"version\":\"0.0.1\"," + "\"department\":\"oped\"," + "\"description\":\"Demo程序\","
-                        + "\"contact\":\"meidongxu@baidu.com\"}")).andExpect(jsonPath("$.version", is("0.0.1")));
+        mvc.perform(get("/application/info"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.data.version", is("0.0.1")));
     }
 }
