@@ -1,0 +1,60 @@
+server:
+  port: 8878
+  compression:
+    enabled: true
+    min-response-size: 1024
+    mime-types:
+      - application/json
+      - application/xml
+      - application/xhtml+xml
+      - text/html
+      - text/xml
+      - text/plain
+project:
+  info:
+    contact: meidongxu@baidu.com
+    version: 0.0.1
+    department: oped
+    description: meu-conf-man project
+
+custom:
+  boot:
+    i18n:
+      enabled: true
+    trace:
+      enabled: true
+    args:
+      enabled: true
+    profiling:
+      enabled: true
+    spring:
+      fox:
+        enabled: true
+        patterns:
+          - /**
+        api-info:
+          title: meu-conf-man
+
+spring:
+  aop:
+    proxy-target-class: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  datasource:
+    data-source-class-name: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+    url: jdbc:mysql://localhost:3306/meu?useUnicode=true&characterEncoding=utf8
+    name:
+    username: root
+    password: root
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    show_sql: true
+    generate-ddl: true
+    properties:
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: true
+

@@ -1,0 +1,2 @@
+MODULE=op/oped/noah/iop/m4/meu/meu-conf-man
+BUILD_SUBMITTER -x -u . -c "cd op/oped/noah/iop/m4/meu/meu-conf-man && sh +x build.sh" -m op/oped/noah/iop/m4/meu/meu-conf-man
