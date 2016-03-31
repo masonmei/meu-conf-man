@@ -1,6 +1,13 @@
 package com.baidu.oped.iop.m4.utils;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+import static com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT;
+import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_DATES_AS_TIMESTAMPS;
+import static com.fasterxml.jackson.databind.SerializationFeature.WRITE_NULL_MAP_VALUES;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +22,14 @@ public abstract class JacksonUtils {
 
     public static ObjectMapper objectMapper;
 
+    static {
+        objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+        objectMapper.configure(WRITE_DATES_AS_TIMESTAMPS, false);
+        objectMapper.configure(INDENT_OUTPUT, true);
+        objectMapper.setSerializationInclusion(NON_NULL);
+    }
+
     /**
      * Json String to Java Bean Object.
      *
@@ -23,10 +38,6 @@ public abstract class JacksonUtils {
      * @return Java Bean Object of the given type.
      */
     public static <T> T deserialize(String jsonStr, Class<T> valueType) {
-        if (objectMapper == null) {
-            objectMapper = new ObjectMapper();
-        }
-
         try {
             return objectMapper.readValue(jsonStr, valueType);
         } catch (Exception e) {
@@ -44,10 +55,6 @@ public abstract class JacksonUtils {
      * @return Java Bean Object of the given type.
      */
     public static <T> T deserialize(String jsonStr, TypeReference<T> valueTypeRef) {
-        if (objectMapper == null) {
-            objectMapper = new ObjectMapper();
-        }
-
         try {
             return objectMapper.readValue(jsonStr, valueTypeRef);
         } catch (Exception e) {
@@ -65,10 +72,6 @@ public abstract class JacksonUtils {
      * @return Json string represent object.
      */
     public static <T> String serialize(T object) {
-        if (objectMapper == null) {
-            objectMapper = new ObjectMapper();
-        }
-
         try {
             return objectMapper.writeValueAsString(object);
         } catch (Exception e) {

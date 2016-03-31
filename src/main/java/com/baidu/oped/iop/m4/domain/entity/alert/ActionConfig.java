@@ -20,19 +20,19 @@ public class ActionConfig {
     @Column(name = "action_config_alert_threshold")
     private int alertThreshold;
 
-    public Set<TimeRange> getDisabledTimes() {
-        return disabledTimes;
-    }
-
-    public void setDisabledTimes(Set<TimeRange> disabledTimes) {
-        this.disabledTimes = disabledTimes;
-    }
-
     public int getAlertThreshold() {
         return alertThreshold;
     }
 
     public void setAlertThreshold(int alertThreshold) {
         this.alertThreshold = alertThreshold;
+    }
+
+    public Set<TimeRange> getDisabledTimes() {
+        return disabledTimes;
+    }
+
+    public void setDisabledTimes(Set<TimeRange> disabledTimes) {
+        this.disabledTimes = disabledTimes;
     }
 }

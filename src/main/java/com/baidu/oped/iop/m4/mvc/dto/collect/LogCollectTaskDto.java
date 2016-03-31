@@ -1,69 +1,85 @@
 package com.baidu.oped.iop.m4.mvc.dto.collect;
 
 import com.baidu.oped.iop.m4.domain.entity.collect.LogCollectTask;
-import com.baidu.oped.iop.m4.mvc.dto.common.AbstractAuditableDto;
-import com.baidu.oped.iop.m4.mvc.dto.common.Dto;
-
-import java.util.Date;
+import com.baidu.oped.iop.m4.domain.entity.collect.LogTaskParam;
+import com.baidu.oped.iop.m4.mvc.dto.common.AbstractAppLayerAuditableDto;
 
 /**
  * Data translate object of LogCollectTask.
  *
  * @author mason
  */
-public class LogCollectTaskDto extends AbstractAuditableDto<LogCollectTask> {
+public class LogCollectTaskDto extends AbstractAppLayerAuditableDto<LogCollectTask> {
 
-    private Long id;
-    private String productName;
-    private String appName;
-    private String name;
+    private static final long serialVersionUID = -7048409487747640685L;
 
-    @Override
-    public void fromModel(LogCollectTask logCollectTask) {
-        initProcess(logCollectTask);
-        this.id = logCollectTask.getId();
-        this.productName = logCollectTask.getProductName();
-        this.appName = logCollectTask.getAppName();
-        this.name = logCollectTask.getName();
-    }
+    private String method;
+    private String comment;
+    private String target;
+    private LogTaskParamDto params;
+    private int cycle;
 
     @Override
-    public void toModel(LogCollectTask logCollectTask) {
-        logCollectTask.setProductName(productName);
-        logCollectTask.setAppName(appName);
-        logCollectTask.setName(name);
-
+    public LogCollectTaskDto fromModel(LogCollectTask model) {
+        super.initProcess(model);
+        this.method = model.getMethod();
+        this.comment = model.getComment();
+        this.target = model.getTarget();
+        this.params = new LogTaskParamDto().fromModel(model.getLogTaskParam());
+        this.cycle = model.getCycle();
+        return this;
     }
 
-    public String getAppName() {
-        return appName;
+    @Override
+    public void toModel(LogCollectTask model) {
+        model.setName(getName());
+        model.setMethod(method);
+        model.setComment(comment);
+        model.setTarget(target);
+        model.setCycle(cycle);
+        LogTaskParam logTaskParam = new LogTaskParam();
+        params.toModel(logTaskParam);
+        model.setLogTaskParam(logTaskParam);
     }
 
-    public void setAppName(String appName) {
-        this.appName = appName;
+    public String getMethod() {
+        return method;
     }
 
-    public Long getId() {
-        return id;
+    public void setMethod(String method) {
+        this.method = method;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getComment() {
+        return comment;
     }
 
-    public String getName() {
-        return name;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getTarget() {
+        return target;
     }
 
-    public String getProductName() {
-        return productName;
+    public void setTarget(String target) {
+        this.target = target;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public LogTaskParamDto getParams() {
+        return params;
     }
+
+    public void setParams(LogTaskParamDto params) {
+        this.params = params;
+    }
+
+    public int getCycle() {
+        return cycle;
+    }
+
+    public void setCycle(int cycle) {
+        this.cycle = cycle;
+    }
+
 }

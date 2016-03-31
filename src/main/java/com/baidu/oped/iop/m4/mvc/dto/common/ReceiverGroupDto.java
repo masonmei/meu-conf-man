@@ -10,81 +10,24 @@ import java.util.Set;
  *
  * @author mason
  */
-public class ReceiverGroupDto extends AbstractAuditableDto<ReceiverGroup> {
+public class ReceiverGroupDto extends AbstractProductLayerAuditableDto<ReceiverGroup> {
 
-    private Long id;
-    private String lastModifiedBy;
-    private Date lastModifiedDate;
-    private Long version;
-    private String productName;
-    private String name;
     private String description;
     private Set<String> members;
 
     @Override
-    public void fromModel(ReceiverGroup receiverGroup) {
-        initProcess(receiverGroup);
-        this.id = receiverGroup.getId();
-        this.productName = receiverGroup.getProductName();
-        this.name = receiverGroup.getName();
+    public ReceiverGroupDto fromModel(ReceiverGroup receiverGroup) {
+        super.initProcess(receiverGroup);
         this.description = receiverGroup.getDescription();
         this.members = receiverGroup.getMembers();
+        return this;
     }
 
     @Override
     public void toModel(ReceiverGroup receiverGroup) {
-        receiverGroup.setProductName(productName);
-        receiverGroup.setName(name);
+        receiverGroup.setName(getName());
         receiverGroup.setDescription(description);
         receiverGroup.setMembers(members);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
     }
 
     public String getDescription() {

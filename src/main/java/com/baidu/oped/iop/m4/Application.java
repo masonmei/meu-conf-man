@@ -19,7 +19,6 @@ import org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
-import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.io.IOException;
@@ -36,7 +35,6 @@ import javax.annotation.PostConstruct;
  */
 @SpringBootApplication(exclude = {ErrorMvcAutoConfiguration.class})
 @EnableJpaRepositories("com.baidu.oped.iop.m4.domain.repository")
-@EnableElasticsearchRepositories("com.baidu.oped.iop.m4.domain.index")
 public class Application {
     private static final Logger LOG = LoggerFactory.getLogger(Application.class);
 

@@ -2,14 +2,10 @@ package com.baidu.oped.iop.m4.domain.entity.alert;
 
 import static javax.persistence.EnumType.STRING;
 
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import javax.persistence.OneToOne;
 
 /**
  * @author mason
@@ -30,6 +26,14 @@ public class Formula {
     @Column(name = "formula_value")
     private BigDecimal value;
 
+    public ComparisonOperator getComparisonOperator() {
+        return comparisonOperator;
+    }
+
+    public void setComparisonOperator(ComparisonOperator comparisonOperator) {
+        this.comparisonOperator = comparisonOperator;
+    }
+
     public String getMetric() {
         return metric;
     }
@@ -44,14 +48,6 @@ public class Formula {
 
     public void setStatistic(Statistic statistic) {
         this.statistic = statistic;
-    }
-
-    public ComparisonOperator getComparisonOperator() {
-        return comparisonOperator;
-    }
-
-    public void setComparisonOperator(ComparisonOperator comparisonOperator) {
-        this.comparisonOperator = comparisonOperator;
     }
 
     public BigDecimal getValue() {

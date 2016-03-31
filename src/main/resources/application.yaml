@@ -10,6 +10,7 @@ server:
       - text/html
       - text/xml
       - text/plain
+  context-path: /v1
 project:
   info:
     contact: meidongxu@baidu.com
@@ -22,8 +23,6 @@ custom:
     i18n:
       enabled: true
     trace:
-      enabled: true
-    args:
       enabled: true
     profiling:
       enabled: true
@@ -57,4 +56,10 @@ spring:
       hibernate.cache.use_second_level_cache: false
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: true
-
+  jackson:
+    serialization-inclusion: non_null
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+security:
+  user:
+    password: 123456

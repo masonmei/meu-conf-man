@@ -30,7 +30,7 @@ public class ReceiverCallbackController {
     private static final Logger LOG = LoggerFactory.getLogger(ReceiverCallbackController.class);
 
     @Autowired
-    private ReceiverCallbackRepository receiverCallbackRepository;
+    private ReceiverCallbackRepository repository;
 
     @RequestMapping(method = POST)
     public ReceiverCallback createReceiverCallback(@PathVariable("productName") String productName,

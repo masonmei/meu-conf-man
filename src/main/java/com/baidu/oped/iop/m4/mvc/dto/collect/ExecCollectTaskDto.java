@@ -1,68 +1,72 @@
 package com.baidu.oped.iop.m4.mvc.dto.collect;
 
 import com.baidu.oped.iop.m4.domain.entity.collect.ExecCollectTask;
-import com.baidu.oped.iop.m4.mvc.dto.common.AbstractAuditableDto;
-
-import java.util.Date;
+import com.baidu.oped.iop.m4.domain.entity.collect.ExecCollectTaskMethod;
+import com.baidu.oped.iop.m4.mvc.dto.common.AbstractAppLayerAuditableDto;
 
 /**
  * Data translate object of ExecCollectTask.
  *
  * @author mason
  */
-public class ExecCollectTaskDto extends AbstractAuditableDto<ExecCollectTask> {
+public class ExecCollectTaskDto extends AbstractAppLayerAuditableDto<ExecCollectTask> {
 
-    private Long id;
-    private String productName;
-    private String appName;
-    private String name;
+    private static final long serialVersionUID = 6090311841792778215L;
 
-    @Override
-    public void fromModel(ExecCollectTask execCollectTask) {
-        initProcess(execCollectTask);
-        this.id = execCollectTask.getId();
-        this.productName = execCollectTask.getProductName();
-        this.appName = execCollectTask.getAppName();
-        this.name = execCollectTask.getName();
-    }
+    private ExecCollectTaskMethod method;
+    private int cycle;
+    private String target;
+    private String comment;
 
     @Override
-    public void toModel(ExecCollectTask execCollectTask) {
-        execCollectTask.setProductName(productName);
-        execCollectTask.setAppName(appName);
-        execCollectTask.setName(name);
-
+    public ExecCollectTaskDto fromModel(ExecCollectTask model) {
+        super.initProcess(model);
+        this.cycle = model.getCycle();
+        this.target = model.getTarget();
+        this.comment = model.getComment();
+        this.method = model.getMethod();
+        return this;
     }
 
-    public String getAppName() {
-        return appName;
+    @Override
+    public void toModel(ExecCollectTask model) {
+        model.setName(getName());
+        model.setMethod(method);
+        model.setCycle(cycle);
+        model.setTarget(target);
+        model.setComment(comment);
     }
 
-    public void setAppName(String appName) {
-        this.appName = appName;
+    public ExecCollectTaskMethod getMethod() {
+        return method;
     }
 
-    public Long getId() {
-        return id;
+    public void setMethod(ExecCollectTaskMethod method) {
+        this.method = method;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public int getCycle() {
+        return cycle;
     }
 
-    public String getName() {
-        return name;
+    public void setCycle(int cycle) {
+        this.cycle = cycle;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getTarget() {
+        return target;
     }
 
-    public String getProductName() {
-        return productName;
+    public void setTarget(String target) {
+        this.target = target;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public String getComment() {
+        return comment;
     }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
 }

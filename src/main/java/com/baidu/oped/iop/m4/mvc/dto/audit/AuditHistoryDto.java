@@ -1,7 +1,10 @@
 package com.baidu.oped.iop.m4.mvc.dto.audit;
 
+import com.baidu.oped.iop.m4.domain.entity.audit.ActionType;
 import com.baidu.oped.iop.m4.domain.entity.audit.AuditHistory;
 import com.baidu.oped.iop.m4.mvc.dto.common.Dto;
+
+import java.util.Date;
 
 /**
  * Data translate object of AuditHistory.
@@ -15,6 +18,11 @@ public class AuditHistoryDto implements Dto<AuditHistory> {
     private String productName;
     private String appName;
     private String name;
+    private ActionType action;
+    private Date actionDate;
+    private String author;
+    private String entityName;
+    private String details;
 
     public String getAppName() {
         return appName;
@@ -57,19 +65,29 @@ public class AuditHistoryDto implements Dto<AuditHistory> {
     }
 
     @Override
-    public void toModel(AuditHistory auditHistory) {
-        auditHistory.setProductName(productName);
-        auditHistory.setAppName(appName);
-        auditHistory.setName(name);
-
+    public void toModel(AuditHistory model) {
+        model.setProductName(productName);
+        model.setAppName(appName);
+        model.setName(name);
+        model.setAction(action);
+        model.setActionDate(actionDate);
+        model.setAuthor(author);
+        model.setEntityName(entityName);
+        model.setDetails(details);
     }
 
     @Override
-    public void fromModel(AuditHistory auditHistory) {
-        this.id = auditHistory.getId();
-        this.productName = auditHistory.getProductName();
-        this.appName = auditHistory.getAppName();
-        this.name = auditHistory.getName();
-        this.version = auditHistory.getVersion();
+    public AuditHistoryDto fromModel(AuditHistory model) {
+        this.id = model.getId();
+        this.productName = model.getProductName();
+        this.appName = model.getAppName();
+        this.name = model.getName();
+        this.version = model.getVersion();
+        this.action = model.getAction();
+        this.actionDate = model.getActionDate();
+        this.author = model.getAuthor();
+        this.entityName = model.getEntityName();
+        this.details = model.getDetails();
+        return this;
     }
 }

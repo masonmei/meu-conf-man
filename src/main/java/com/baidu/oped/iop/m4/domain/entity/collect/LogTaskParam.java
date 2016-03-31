@@ -37,12 +37,12 @@ public class LogTaskParam implements Serializable {
     @Column(name = "`condition`", length = 255)
     private String condition;
 
-    public String getLogFilepath() {
-        return logFilepath;
+    public String getCondition() {
+        return condition;
     }
 
-    public void setLogFilepath(String logFilepath) {
-        this.logFilepath = logFilepath;
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     public int getLimitRate() {
@@ -51,6 +51,14 @@ public class LogTaskParam implements Serializable {
 
     public void setLimitRate(int limitRate) {
         this.limitRate = limitRate;
+    }
+
+    public String getLogFilepath() {
+        return logFilepath;
+    }
+
+    public void setLogFilepath(String logFilepath) {
+        this.logFilepath = logFilepath;
     }
 
     public String getMatchStr() {
@@ -69,14 +77,6 @@ public class LogTaskParam implements Serializable {
         this.preMatch = preMatch;
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
     public String getTags() {
         return tags;
     }
@@ -85,11 +85,11 @@ public class LogTaskParam implements Serializable {
         this.tags = tags;
     }
 
-    public String getCondition() {
-        return condition;
+    public String getValue() {
+        return value;
     }
 
-    public void setCondition(String condition) {
-        this.condition = condition;
+    public void setValue(String value) {
+        this.value = value;
     }
 }

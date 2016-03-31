@@ -19,7 +19,7 @@ public enum ComparisonOperator {
             return "<";
         }
     },
-    LET {
+    LTE {
         public String rendered() {
             return "<=";
         }
@@ -29,7 +29,7 @@ public enum ComparisonOperator {
             return ">";
         }
     },
-    GET {
+    GTE {
         public String rendered() {
             return ">=";
         }

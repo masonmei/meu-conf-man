@@ -1,6 +1,10 @@
 package com.baidu.oped.iop.m4.mvc.dto.common;
 
+import static com.baidu.oped.sia.boot.utils.Constrains.Datetime.DATE_TIME_FORMAT;
+
 import com.baidu.oped.iop.m4.custom.audit.AbstractAuditable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
@@ -10,6 +14,7 @@ import java.util.Date;
 public abstract class AbstractAuditableDto<T extends AbstractAuditable> implements Dto<T> {
 
     private String lastModifiedBy;
+    @JsonFormat(pattern = DATE_TIME_FORMAT)
     private Date lastModifiedDate;
     private Long version;
 

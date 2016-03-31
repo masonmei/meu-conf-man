@@ -11,9 +11,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author mason
  */
 public interface AggrTaskRepository extends JpaRepository<AggrTask, Long> {
-    Page<AggrTask> findByProductNameAndNameContains(String productName, String name, Pageable pageable);
-
-    Page<AggrTask> findByProductNameAndAppNameAndNameContains(String productName, String appName, String name,
-            Pageable pageable);
 
 }

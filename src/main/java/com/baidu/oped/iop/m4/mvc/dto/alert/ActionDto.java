@@ -1,97 +1,66 @@
 package com.baidu.oped.iop.m4.mvc.dto.alert;
 
 import com.baidu.oped.iop.m4.domain.entity.alert.Action;
-import com.baidu.oped.iop.m4.mvc.dto.common.Dto;
+import com.baidu.oped.iop.m4.domain.entity.alert.ActionConfig;
+import com.baidu.oped.iop.m4.domain.entity.alert.Notification;
+import com.baidu.oped.iop.m4.mvc.dto.common.AbstractProductLayerAuditableDto;
 
-import java.util.Date;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Data translate object of Action.
  *
  * @author mason
  */
-public class ActionDto implements Dto<Action> {
+public class ActionDto extends AbstractProductLayerAuditableDto<Action> {
 
-    private Long id;
-    private String lastModifiedBy;
-    private Date lastModifiedDate;
-    private Long version;
-    private String productName;
-    private String appName;
-    private String name;
+    private static final long serialVersionUID = -1613536516204589930L;
 
-    public String getAppName() {
-        return appName;
-    }
-
-    public void setAppName(String appName) {
-        this.appName = appName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
+    private Set<NotificationDto> notifications;
+    private ActionConfigDto config;
 
     @Override
     public void toModel(Action action) {
-        action.setProductName(productName);
-        action.setAppName(appName);
-        action.setName(name);
+        action.setName(getName());
+        ActionConfig config = new ActionConfig();
+        this.config.toModel(config);
+        action.setConfig(config);
 
+        action.setNotifications(notifications.stream()
+                .map(notificationDto -> {
+                    Notification notification = new Notification();
+                    notificationDto.toModel(notification);
+                    return notification;
+                })
+                .collect(Collectors.toSet()));
     }
 
     @Override
-    public void fromModel(Action action) {
-        this.id = action.getId();
-        this.productName = action.getProductName();
-        this.appName = action.getAppName();
-        this.name = action.getName();
-        this.lastModifiedBy = action.getLastModifiedBy();
-        this.lastModifiedDate = action.getLastModifiedDate().toDate();
-        this.version = action.getVersion();
+    public ActionDto fromModel(Action action) {
+        super.initProcess(action);
+        this.config = new ActionConfigDto().fromModel(action.getConfig());
+        this.notifications = action.getNotifications()
+                .stream()
+                .map(notification -> new NotificationDto().fromModel(notification))
+                .collect(Collectors.toSet());
+        return this;
     }
+
+    public Set<NotificationDto> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(Set<NotificationDto> notifications) {
+        this.notifications = notifications;
+    }
+
+    public ActionConfigDto getConfig() {
+        return config;
+    }
+
+    public void setConfig(ActionConfigDto config) {
+        this.config = config;
+    }
+
 }

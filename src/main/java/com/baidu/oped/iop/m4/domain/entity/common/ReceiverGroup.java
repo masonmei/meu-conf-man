@@ -1,7 +1,5 @@
 package com.baidu.oped.iop.m4.domain.entity.common;
 
-import org.springframework.data.elasticsearch.annotations.Document;
-
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.ElementCollection;
@@ -16,7 +14,6 @@ import javax.persistence.Table;
 @Table(indexes = {
         @Index(name = "product_receiver_group_unique_index", columnList = "`product_name`, `name`", unique = true),
         @Index(name = "product_layer_index", columnList = "`product_name`")})
-@Document(indexName = "receiver_groups")
 public class ReceiverGroup extends AbstractReceiver<Long> implements Receiver {
 
     private static final long serialVersionUID = 4291078795956514729L;

@@ -14,20 +14,20 @@ public class Filter {
     @Column(name = "filter_max")
     private int max;
 
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
     public int getMax() {
         return max;
     }
 
     public void setMax(int max) {
         this.max = max;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 
 

@@ -5,6 +5,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
+import static java.lang.String.format;
+
 import com.baidu.oped.iop.m4.domain.entity.metric.Metric;
 import com.baidu.oped.iop.m4.domain.repository.metric.MetricRepository;
 import com.baidu.oped.iop.m4.mvc.dto.metric.MetricDto;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
+import javax.persistence.EntityExistsException;
 
 /**
  * @author mason
@@ -28,15 +32,25 @@ public class MetricController {
     private static final Logger LOG = LoggerFactory.getLogger(MetricController.class);
 
     @Autowired
-    private MetricRepository metricRepository;
+    private MetricRepository repository;
 
     @RequestMapping(method = POST)
-    public Metric createMetric(@PathVariable("productName") String productName, @PathVariable("appName") String appName,
-            @RequestBody MetricDto metricDto) {
-        LOG.debug("Create Metric for productName: {} and appName: {} with MetricDto: {}", productName, appName,
-                metricDto);
+    public MetricDto createMetric(@PathVariable("productName") String productName,
+            @PathVariable("appName") String appName, @RequestBody MetricDto dto) {
+        LOG.debug("Create Metric for productName: {} and appName: {} with MetricDto: {}", productName, appName, dto);
 
-        return null;
+        Optional<Metric> findOne =
+                repository.findOneByProductNameAndAppNameAndName(productName, appName, dto.getName());
+        if (findOne.isPresent()) {
+            throw new EntityExistsException(format("The Metric with name %s already exists.", dto.getName()));
+        }
+        Metric task = new Metric();
+        dto.toModel(task);
+        task.setProductName(productName);
+        task.setAppName(appName);
+        Metric saved = repository.save(task);
+        LOG.debug("Metric {} saved succeed.", saved);
+        return new MetricDto().fromModel(saved);
     }
 
     @RequestMapping(value = "{taskName}", method = DELETE)

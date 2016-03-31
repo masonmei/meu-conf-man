@@ -30,7 +30,7 @@ public class AggrTaskController {
     private static final Logger LOG = LoggerFactory.getLogger(AggrTaskController.class);
 
     @Autowired
-    private AggrTaskRepository aggrTaskRepository;
+    private AggrTaskRepository taskRepository;
 
     @RequestMapping(method = POST)
     public AggrTask createAggrTask(@PathVariable("productName") String productName,

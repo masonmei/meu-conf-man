@@ -1,10 +1,6 @@
 package com.baidu.oped.iop.m4.domain.entity.common;
 
-import static org.springframework.data.elasticsearch.annotations.FieldType.String;
-
 import com.baidu.oped.iop.m4.custom.audit.AbstractAuditable;
-
-import org.springframework.data.elasticsearch.annotations.Field;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -21,12 +17,10 @@ public abstract class ProductLayerEntity<PK extends Serializable> extends Abstra
 
     @NotNull
     @Column(name = "`product_name`", length = 128, nullable = false)
-    @Field(type = String)
     private String productName;
 
     @NotNull
     @Column(name = "`name`", length = 128, nullable = false)
-    @Field(type = String)
     private String name;
 
     public String getName() {

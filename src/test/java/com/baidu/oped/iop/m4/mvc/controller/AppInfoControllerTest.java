@@ -1,4 +1,4 @@
-package com.baidu.oped.iop.m4.controller;
+package com.baidu.oped.iop.m4.mvc.controller;
 
 import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

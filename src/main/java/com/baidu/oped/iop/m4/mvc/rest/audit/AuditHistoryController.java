@@ -23,7 +23,7 @@ public class AuditHistoryController {
     private static final Logger LOG = LoggerFactory.getLogger(AuditHistoryController.class);
 
     @Autowired
-    private AuditHistoryRepository auditHistoryRepository;
+    private AuditHistoryRepository repository;
 
     @RequestMapping(method = POST)
     public AuditHistory createAuditHistory(@PathVariable("productName") String productName,

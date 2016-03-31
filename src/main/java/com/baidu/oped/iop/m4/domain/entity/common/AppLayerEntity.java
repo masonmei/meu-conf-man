@@ -1,10 +1,6 @@
 package com.baidu.oped.iop.m4.domain.entity.common;
 
 
-import static org.springframework.data.elasticsearch.annotations.FieldType.String;
-
-import org.springframework.data.elasticsearch.annotations.Field;
-
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -20,7 +16,6 @@ public abstract class AppLayerEntity<PK extends Serializable> extends ProductLay
 
     @NotNull
     @Column(name = "`app_name`", length = 128, nullable = false)
-    @Field(type = String)
     private String appName;
 
     public String getAppName() {

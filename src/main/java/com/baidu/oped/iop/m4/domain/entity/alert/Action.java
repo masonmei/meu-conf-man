@@ -1,11 +1,10 @@
 package com.baidu.oped.iop.m4.domain.entity.alert;
 
-import com.baidu.oped.iop.m4.domain.entity.common.AppLayerEntity;
-
-import org.springframework.data.elasticsearch.annotations.Document;
+import com.baidu.oped.iop.m4.domain.entity.common.ProductLayerEntity;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
@@ -20,12 +19,9 @@ import javax.persistence.Table;
  * @author mason
  */
 @Entity
-@Table(indexes = {
-        @Index(name = "app_action_unique_index", columnList = "`product_name`, `app_name`, `name`", unique = true),
-        @Index(name = "product_layer_index", columnList = "`product_name`"),
-        @Index(name = "app_layer_index", columnList = "`product_name`, `app_name`")})
-@Document(indexName = "actions")
-public class Action extends AppLayerEntity<Long> {
+@Table(indexes = {@Index(name = "app_action_unique_index", columnList = "`product_name`, `name`", unique = true),
+        @Index(name = "product_layer_index", columnList = "`product_name`")})
+public class Action extends ProductLayerEntity<Long> {
 
     private static final long serialVersionUID = -499533822964411972L;
 
@@ -36,13 +32,13 @@ public class Action extends AppLayerEntity<Long> {
     @CollectionTable(name = "action_notifications", joinColumns = {@JoinColumn(name = "action_id")})
     private Set<Notification> notifications = new HashSet<>();
 
-    @ManyToMany(mappedBy = "resumeActions")
+    @ManyToMany(mappedBy = "resumeActions", cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     private Set<Policy> resumeActionsPolicies = new HashSet<>();
 
-    @ManyToMany(mappedBy = "insufficientActions")
+    @ManyToMany(mappedBy = "insufficientActions", cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     private Set<Policy> insufficientActionPolicies = new HashSet<>();
 
-    @ManyToMany(mappedBy = "incidentActions")
+    @ManyToMany(mappedBy = "incidentActions", cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     private Set<Policy> incidentActionPolicies = new HashSet<>();
 
     public ActionConfig getConfig() {
@@ -51,6 +47,22 @@ public class Action extends AppLayerEntity<Long> {
 
     public void setConfig(ActionConfig config) {
         this.config = config;
+    }
+
+    public Set<Policy> getIncidentActionPolicies() {
+        return incidentActionPolicies;
+    }
+
+    public void setIncidentActionPolicies(Set<Policy> incidentActionPolicies) {
+        this.incidentActionPolicies = incidentActionPolicies;
+    }
+
+    public Set<Policy> getInsufficientActionPolicies() {
+        return insufficientActionPolicies;
+    }
+
+    public void setInsufficientActionPolicies(Set<Policy> insufficientActionPolicies) {
+        this.insufficientActionPolicies = insufficientActionPolicies;
     }
 
     public Set<Notification> getNotifications() {
@@ -67,21 +79,5 @@ public class Action extends AppLayerEntity<Long> {
 
     public void setResumeActionsPolicies(Set<Policy> resumeActionsPolicies) {
         this.resumeActionsPolicies = resumeActionsPolicies;
-    }
-
-    public Set<Policy> getInsufficientActionPolicies() {
-        return insufficientActionPolicies;
-    }
-
-    public void setInsufficientActionPolicies(Set<Policy> insufficientActionPolicies) {
-        this.insufficientActionPolicies = insufficientActionPolicies;
-    }
-
-    public Set<Policy> getIncidentActionPolicies() {
-        return incidentActionPolicies;
-    }
-
-    public void setIncidentActionPolicies(Set<Policy> incidentActionPolicies) {
-        this.incidentActionPolicies = incidentActionPolicies;
     }
 }

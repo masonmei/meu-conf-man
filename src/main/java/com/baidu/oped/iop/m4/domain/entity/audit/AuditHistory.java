@@ -58,20 +58,20 @@ public class AuditHistory extends AbstractPersistable<Long> {
 
     private int version;
 
-    public String getProductName() {
-        return productName;
+    public ActionType getAction() {
+        return action;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setAction(ActionType action) {
+        this.action = action;
     }
 
-    public String getName() {
-        return name;
+    public Date getActionDate() {
+        return actionDate;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setActionDate(Date actionDate) {
+        this.actionDate = actionDate;
     }
 
     public String getAppName() {
@@ -90,32 +90,16 @@ public class AuditHistory extends AbstractPersistable<Long> {
         this.author = author;
     }
 
+    public <T> T getDetailObject(Class<T> clazz) {
+        return JacksonUtils.deserialize(details, clazz);
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
     public void setDetails(String details) {
         this.details = details;
-    }
-
-    public ActionType getAction() {
-        return action;
-    }
-
-    public void setAction(ActionType action) {
-        this.action = action;
-    }
-
-    public Date getActionDate() {
-        return actionDate;
-    }
-
-    public void setActionDate(Date actionDate) {
-        this.actionDate = actionDate;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
 
     public String getEntityName() {
@@ -126,15 +110,31 @@ public class AuditHistory extends AbstractPersistable<Long> {
         this.entityName = entityName;
     }
 
-    public String getDetails() {
-        return details;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public <T> void setDetailObject(T object) {
         setDetails(JacksonUtils.serialize(object));
-    }
-
-    public <T> T getDetailObject(Class<T> clazz) {
-        return JacksonUtils.deserialize(details, clazz);
     }
 }

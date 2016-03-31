@@ -30,7 +30,7 @@ public class ReceiverGroupController {
     private static final Logger LOG = LoggerFactory.getLogger(ReceiverGroupController.class);
 
     @Autowired
-    private ReceiverGroupRepository receiverGroupRepository;
+    private ReceiverGroupRepository repository;
 
     @RequestMapping(method = POST)
     public ReceiverGroup createReceiverGroup(@PathVariable("productName") String productName,

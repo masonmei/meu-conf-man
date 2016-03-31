@@ -1,10 +1,5 @@
 package com.baidu.oped.iop.m4.domain.entity.common;
 
-import static org.springframework.data.elasticsearch.annotations.FieldType.String;
-
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
@@ -16,11 +11,9 @@ import javax.persistence.Table;
 @Table(indexes = {
         @Index(name = "product_receiver_callback_unique_index", columnList = "`product_name`, `name`", unique = true),
         @Index(name = "product_layer_index", columnList = "`product_name`")})
-@Document(indexName = "receiver_callbacks")
 public class ReceiverCallback extends AbstractReceiver<Long> implements Receiver {
     private static final long serialVersionUID = 6061905584740599703L;
 
-    @Field(type = String)
     private String callbackUri;
     private boolean needCredential = true;
     private String username;
@@ -34,12 +27,12 @@ public class ReceiverCallback extends AbstractReceiver<Long> implements Receiver
         this.callbackUri = callbackUri;
     }
 
-    public boolean isNeedCredential() {
-        return needCredential;
+    public String getPassword() {
+        return password;
     }
 
-    public void setNeedCredential(boolean needCredential) {
-        this.needCredential = needCredential;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUsername() {
@@ -50,11 +43,11 @@ public class ReceiverCallback extends AbstractReceiver<Long> implements Receiver
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public boolean isNeedCredential() {
+        return needCredential;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setNeedCredential(boolean needCredential) {
+        this.needCredential = needCredential;
     }
 }

@@ -1,69 +1,47 @@
 package com.baidu.oped.iop.m4.mvc.dto.collect;
 
 import com.baidu.oped.iop.m4.domain.entity.collect.DerivedTask;
-import com.baidu.oped.iop.m4.mvc.dto.common.AbstractAuditableDto;
-import com.baidu.oped.iop.m4.mvc.dto.common.Dto;
-
-import java.util.Date;
+import com.baidu.oped.iop.m4.mvc.dto.common.AbstractAppLayerAuditableDto;
 
 /**
  * Data translate object of DerivedTask.
  *
  * @author mason
  */
-public class DerivedTaskDto extends AbstractAuditableDto<DerivedTask> {
+public class DerivedTaskDto extends AbstractAppLayerAuditableDto<DerivedTask> {
 
-    private Long id;
-    private String productName;
-    private String appName;
-    private String name;
+    private static final long serialVersionUID = -7113900358525560919L;
+    private String formula;
+    private String comment;
 
     @Override
-    public void fromModel(DerivedTask derivedTask) {
-        initProcess(derivedTask);
-        this.id = derivedTask.getId();
-        this.productName = derivedTask.getProductName();
-        this.appName = derivedTask.getAppName();
-        this.name = derivedTask.getName();
+    public DerivedTaskDto fromModel(DerivedTask model) {
+        super.initProcess(model);
+        this.comment = model.getComment();
+        this.formula = model.getFormula();
+        return this;
     }
 
     @Override
-    public void toModel(DerivedTask derivedTask) {
-        derivedTask.setProductName(productName);
-        derivedTask.setAppName(appName);
-        derivedTask.setName(name);
-
+    public void toModel(DerivedTask model) {
+        model.setName(getName());
+        model.setFormula(formula);
+        model.setComment(comment);
     }
 
-    public String getAppName() {
-        return appName;
+    public String getFormula() {
+        return formula;
     }
 
-    public void setAppName(String appName) {
-        this.appName = appName;
+    public void setFormula(String formula) {
+        this.formula = formula;
     }
 
-    public Long getId() {
-        return id;
+    public String getComment() {
+        return comment;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

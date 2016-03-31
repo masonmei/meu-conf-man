@@ -1,66 +1,105 @@
 package com.baidu.oped.iop.m4.mvc.dto.collect;
 
 import com.baidu.oped.iop.m4.domain.entity.collect.PatrolCollectTask;
-import com.baidu.oped.iop.m4.mvc.dto.common.AbstractAuditableDto;
+import com.baidu.oped.iop.m4.domain.entity.collect.PatrolCollectTaskMethod;
+import com.baidu.oped.iop.m4.mvc.dto.common.AbstractAppLayerAuditableDto;
 
 /**
  * Data translate object of PatrolCollectTask.
  *
  * @author mason
  */
-public class PatrolCollectTaskDto extends AbstractAuditableDto<PatrolCollectTask> {
+public class PatrolCollectTaskDto extends AbstractAppLayerAuditableDto<PatrolCollectTask> {
 
-    private Long id;
-    private String productName;
-    private String appName;
-    private String name;
+    private static final long serialVersionUID = 3254881422730323993L;
 
-    @Override
-    public void fromModel(PatrolCollectTask patrolCollectTask) {
-        initProcess(patrolCollectTask);
-        this.id = patrolCollectTask.getId();
-        this.productName = patrolCollectTask.getProductName();
-        this.appName = patrolCollectTask.getAppName();
-        this.name = patrolCollectTask.getName();
-    }
+    private int cycle;
+    private String target;
+    private PatrolCollectTaskMethod method;
+    private String comment;
+    private int port;
+    private int timeout;
+    private String configParam;
 
     @Override
-    public void toModel(PatrolCollectTask patrolCollectTask) {
-        patrolCollectTask.setProductName(productName);
-        patrolCollectTask.setAppName(appName);
-        patrolCollectTask.setName(name);
-
+    public PatrolCollectTaskDto fromModel(PatrolCollectTask model) {
+        super.initProcess(model);
+        this.cycle = model.getCycle();
+        this.target = model.getTarget();
+        this.method = model.getMethod();
+        this.comment = model.getComment();
+        this.port = model.getPort();
+        this.timeout = model.getTimeout();
+        this.configParam = model.getConfigParam();
+        return this;
     }
 
-    public String getAppName() {
-        return appName;
+    @Override
+    public void toModel(PatrolCollectTask model) {
+        model.setName(getName());
+        model.setCycle(cycle);
+        model.setTarget(target);
+        model.setMethod(method);
+        model.setComment(comment);
+        model.setPort(port);
+        model.setTimeout(timeout);
+        model.setConfigParam(configParam);
     }
 
-    public void setAppName(String appName) {
-        this.appName = appName;
+    public int getCycle() {
+        return cycle;
     }
 
-    public Long getId() {
-        return id;
+    public void setCycle(int cycle) {
+        this.cycle = cycle;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getTarget() {
+        return target;
     }
 
-    public String getName() {
-        return name;
+    public void setTarget(String target) {
+        this.target = target;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public PatrolCollectTaskMethod getMethod() {
+        return method;
     }
 
-    public String getProductName() {
-        return productName;
+    public void setMethod(PatrolCollectTaskMethod method) {
+        this.method = method;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public String getComment() {
+        return comment;
     }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
+    }
+
+    public String getConfigParam() {
+        return configParam;
+    }
+
+    public void setConfigParam(String configParam) {
+        this.configParam = configParam;
+    }
+
 }
