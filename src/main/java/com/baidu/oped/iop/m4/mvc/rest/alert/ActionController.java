@@ -60,7 +60,7 @@ public class ActionController {
         LOG.debug("Delete Action {}.{} ", productName, actionName);
         Optional<Action> findOne = repository.findOneByProductNameAndName(productName, actionName);
         if (!findOne.isPresent()) {
-            throw new EntityNotFoundException("You cannot delete a not exist DerivedTask");
+            throw new EntityNotFoundException("You cannot delete a not exist Action");
         }
         repository.delete(findOne.get());
     }
@@ -83,9 +83,9 @@ public class ActionController {
     }
 
     @RequestMapping(value = "{actionName}", method = GET)
-    public ActionDto findDAction(@PathVariable("productName") String productName,
+    public ActionDto findAction(@PathVariable("productName") String productName,
             @PathVariable("actionName") String actionName) {
-        LOG.debug("Find DerivedTask with productName: {}, actionName: {}", productName, actionName);
+        LOG.debug("Find Action with productName: {}, actionName: {}", productName, actionName);
         Optional<Action> findOne = repository.findOneByProductNameAndName(productName, actionName);
         if (!findOne.isPresent()) {
             throw new EntityNotFoundException("Action not exist");

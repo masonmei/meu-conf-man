@@ -1,6 +1,5 @@
 package com.baidu.oped.iop.m4.mvc.rest.collect;
 
-import static com.baidu.oped.iop.m4.domain.entity.collect.PatrolCollectTaskMethod.HTTP;
 import static com.baidu.oped.iop.m4.utils.JacksonUtils.serialize;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -20,7 +19,6 @@ import com.baidu.oped.iop.m4.domain.entity.collect.LogTaskParam;
 import com.baidu.oped.iop.m4.domain.repository.collect.LogCollectTaskRepository;
 import com.baidu.oped.iop.m4.mvc.dto.collect.LogCollectTaskDto;
 import com.baidu.oped.iop.m4.mvc.dto.collect.LogTaskParamDto;
-import com.baidu.oped.iop.m4.mvc.dto.collect.PatrolCollectTaskDto;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -114,9 +112,10 @@ public class LogCollectTaskControllerTest {
 
     @Test
     public void deleteLogCollectTask() throws Exception {
-        mvc.perform(delete("/products/{productName}/apps/{appName}/logCollectTasks/{taskName}", "productName",
-                "appName", "taskName1").with(user("user").password("123456"))
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+        mvc.perform(
+                delete("/products/{productName}/apps/{appName}/logCollectTasks/{taskName}", "productName", "appName",
+                        "taskName1").with(user("user").password("123456"))
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andDo(print());
     }
@@ -136,9 +135,8 @@ public class LogCollectTaskControllerTest {
         logTaskParam.setMatchStr("matchStr");
         logTaskParam.setPreMatch("preMatch");
         task.setParams(logTaskParam);
-        mvc.perform(put("/products/{productName}/apps/{appName}/logCollectTasks/{taskName}", "productName",
-                "appName", "taskName1")
-                .with(user("user").password("123456"))
+        mvc.perform(put("/products/{productName}/apps/{appName}/logCollectTasks/{taskName}", "productName", "appName",
+                "taskName1").with(user("user").password("123456"))
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(serialize(task)))
@@ -152,9 +150,8 @@ public class LogCollectTaskControllerTest {
 
     @Test
     public void findProcessCollectTask() throws Exception {
-        mvc.perform(get("/products/{productName}/apps/{appName}/logCollectTasks/{taskName}", "productName",
-                "appName", "taskName1")
-                .with(user("user").password("123456"))
+        mvc.perform(get("/products/{productName}/apps/{appName}/logCollectTasks/{taskName}", "productName", "appName",
+                "taskName1").with(user("user").password("123456"))
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
@@ -167,12 +164,13 @@ public class LogCollectTaskControllerTest {
 
     @Test
     public void findLogCollectTasks() throws Exception {
-        mvc.perform(get("/products/{productName}/apps/{appName}/logCollectTasks", "productName", "appName")
-                .param("orderBy", "-name")
-                .param("pageNumber", "0")
-                .param("pageSize", "20")
-                .with(user("user").password("123456"))
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+        mvc.perform(
+                get("/products/{productName}/apps/{appName}/logCollectTasks", "productName", "appName").param("orderBy",
+                        "-name")
+                        .param("pageNumber", "0")
+                        .param("pageSize", "20")
+                        .with(user("user").password("123456"))
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.totalPages", is(1)))
@@ -181,8 +179,8 @@ public class LogCollectTaskControllerTest {
                 .andExpect(jsonPath("$.data.first", is(true)))
                 .andExpect(jsonPath("$.data.last", is(true)));
 
-        mvc.perform(get("/products/{productName}/apps/{appName}/logCollectTasks", "productName", "appName")
-                .param("pageNumber", "1")
+        mvc.perform(get("/products/{productName}/apps/{appName}/logCollectTasks", "productName", "appName").param(
+                "pageNumber", "1")
                 .param("pageSize", "20")
                 .with(user("user").password("123456"))
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -194,12 +192,13 @@ public class LogCollectTaskControllerTest {
                 .andExpect(jsonPath("$.data.first", is(false)))
                 .andExpect(jsonPath("$.data.last", is(true)));
 
-        mvc.perform(get("/products/{productName}/apps/{appName}/logCollectTasks", "productName", "appName")
-                .param("query", "name:taskName1")
-                .param("pageNumber", "0")
-                .param("pageSize", "20")
-                .with(user("user").password("123456"))
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+        mvc.perform(
+                get("/products/{productName}/apps/{appName}/logCollectTasks", "productName", "appName").param("query",
+                        "name:taskName1")
+                        .param("pageNumber", "0")
+                        .param("pageSize", "20")
+                        .with(user("user").password("123456"))
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.totalPages", is(1)))
@@ -208,12 +207,13 @@ public class LogCollectTaskControllerTest {
                 .andExpect(jsonPath("$.data.first", is(true)))
                 .andExpect(jsonPath("$.data.last", is(true)));
 
-        mvc.perform(get("/products/{productName}/apps/{appName}/logCollectTasks", "productName", "appName")
-                .param("query", "taskName1")
-                .param("pageNumber", "0")
-                .param("pageSize", "20")
-                .with(user("user").password("123456"))
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+        mvc.perform(
+                get("/products/{productName}/apps/{appName}/logCollectTasks", "productName", "appName").param("query",
+                        "taskName1")
+                        .param("pageNumber", "0")
+                        .param("pageSize", "20")
+                        .with(user("user").password("123456"))
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.totalPages", is(1)))
@@ -222,13 +222,14 @@ public class LogCollectTaskControllerTest {
                 .andExpect(jsonPath("$.data.first", is(true)))
                 .andExpect(jsonPath("$.data.last", is(true)));
 
-        mvc.perform(get("/products/{productName}/apps/{appName}/logCollectTasks", "productName", "appName")
-                .param("query", "logTarget1")
-                .param("orderBy", "-name")
-                .param("pageNumber", "0")
-                .param("pageSize", "20")
-                .with(user("user").password("123456"))
-                .accept(MediaType.APPLICATION_JSON_UTF8))
+        mvc.perform(
+                get("/products/{productName}/apps/{appName}/logCollectTasks", "productName", "appName").param("query",
+                        "logTarget1")
+                        .param("orderBy", "-name")
+                        .param("pageNumber", "0")
+                        .param("pageSize", "20")
+                        .with(user("user").password("123456"))
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.totalPages", is(1)))

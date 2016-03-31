@@ -3,6 +3,7 @@ package com.baidu.oped.iop.m4.mvc.dto.common;
 import com.baidu.oped.iop.m4.domain.entity.common.ReceiverGroup;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -12,8 +13,9 @@ import java.util.Set;
  */
 public class ReceiverGroupDto extends AbstractProductLayerAuditableDto<ReceiverGroup> {
 
+    private static final long serialVersionUID = 5881844313933387480L;
     private String description;
-    private Set<String> members;
+    private Set<String> members = new HashSet<>();
 
     @Override
     public ReceiverGroupDto fromModel(ReceiverGroup receiverGroup) {

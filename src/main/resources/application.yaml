@@ -35,6 +35,10 @@ custom:
           title: meu-conf-man
 
 spring:
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 1000
   aop:
     proxy-target-class: true
   mvc:

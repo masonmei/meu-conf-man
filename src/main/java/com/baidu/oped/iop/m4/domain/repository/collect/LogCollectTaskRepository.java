@@ -6,6 +6,7 @@ import static com.baidu.oped.iop.m4.utils.PageUtils.getContainsLikePattern;
 
 import com.baidu.oped.iop.m4.domain.entity.collect.LogCollectTask;
 import com.baidu.oped.iop.m4.domain.entity.collect.LogCollectTask_;
+import com.baidu.oped.iop.m4.domain.repository.SearchField;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -69,26 +70,6 @@ public interface LogCollectTaskRepository
                     break;
             }
             return cb.and(pnPre, anPre, searchPre);
-        }
-    }
-
-    enum SearchField {
-        ALL,
-        NAME,
-        TARGET,
-        PARAMS;
-
-        public static SearchField get(String name) {
-            if (name == null) {
-                return ALL;
-            }
-            for (SearchField searchField : values()) {
-                if (searchField.name()
-                        .equalsIgnoreCase(name)) {
-                    return searchField;
-                }
-            }
-            return ALL;
         }
     }
 }

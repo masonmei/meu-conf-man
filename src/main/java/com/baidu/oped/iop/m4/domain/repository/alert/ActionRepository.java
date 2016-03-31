@@ -9,6 +9,7 @@ import com.baidu.oped.iop.m4.domain.entity.alert.Action;
 import com.baidu.oped.iop.m4.domain.entity.alert.Action_;
 import com.baidu.oped.iop.m4.domain.entity.alert.Notification;
 import com.baidu.oped.iop.m4.domain.entity.alert.Notification_;
+import com.baidu.oped.iop.m4.domain.repository.SearchField;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -75,22 +76,4 @@ public interface ActionRepository extends JpaRepository<Action, Long>, JpaSpecif
         }
     }
 
-    enum SearchField {
-        ALL,
-        NAME,
-        NOTIFY_TYPE;
-
-        public static SearchField get(String name) {
-            if (StringUtils.isEmpty(name)) {
-                return ALL;
-            }
-            for (SearchField searchField : values()) {
-                if (searchField.name()
-                        .equalsIgnoreCase(name)) {
-                    return searchField;
-                }
-            }
-            return ALL;
-        }
-    }
 }

@@ -11,6 +11,7 @@ import com.baidu.oped.iop.m4.domain.entity.alert.MonitoringObject;
 import com.baidu.oped.iop.m4.domain.entity.alert.MonitoringObject_;
 import com.baidu.oped.iop.m4.domain.entity.alert.Policy;
 import com.baidu.oped.iop.m4.domain.entity.alert.Policy_;
+import com.baidu.oped.iop.m4.domain.repository.SearchField;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -77,27 +78,6 @@ public interface PolicyRepository extends JpaRepository<Policy, Long>, JpaSpecif
                     break;
             }
             return cb.and(pnPre, anPre, searchPre);
-        }
-    }
-
-
-    enum SearchField {
-        ALL,
-        NAME,
-        MONITORING_OBJECT,
-        FORMULA;
-
-        public static SearchField get(String name) {
-            if (StringUtils.isEmpty(name)) {
-                return ALL;
-            }
-            for (SearchField searchField : values()) {
-                if (searchField.name()
-                        .equalsIgnoreCase(name)) {
-                    return searchField;
-                }
-            }
-            return ALL;
         }
     }
 }

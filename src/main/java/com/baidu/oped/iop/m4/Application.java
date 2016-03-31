@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -35,6 +36,7 @@ import javax.annotation.PostConstruct;
  */
 @SpringBootApplication(exclude = {ErrorMvcAutoConfiguration.class})
 @EnableJpaRepositories("com.baidu.oped.iop.m4.domain.repository")
+@EnableRedisHttpSession
 public class Application {
     private static final Logger LOG = LoggerFactory.getLogger(Application.class);
 
