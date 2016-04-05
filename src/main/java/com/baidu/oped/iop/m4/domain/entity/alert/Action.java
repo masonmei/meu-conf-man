@@ -2,6 +2,8 @@ package com.baidu.oped.iop.m4.domain.entity.alert;
 
 import com.baidu.oped.iop.m4.domain.entity.common.ProductLayerEntity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -28,18 +30,21 @@ public class Action extends ProductLayerEntity<Long> {
     @Embedded
     private ActionConfig config;
 
-    @ElementCollection(targetClass = Notification.class, fetch = FetchType.LAZY)
+    @ElementCollection(targetClass = Notification.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "action_notifications", joinColumns = {@JoinColumn(name = "action_id")})
     private Set<Notification> notifications = new HashSet<>();
-
-    @ManyToMany(mappedBy = "resumeActions", cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    private Set<Policy> resumeActionsPolicies = new HashSet<>();
-
-    @ManyToMany(mappedBy = "insufficientActions", cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    private Set<Policy> insufficientActionPolicies = new HashSet<>();
-
-    @ManyToMany(mappedBy = "incidentActions", cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    private Set<Policy> incidentActionPolicies = new HashSet<>();
+//
+//    @JsonIgnore
+//    @ManyToMany(mappedBy = "resumeActions", cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+//    private Set<Policy> resumeActionsPolicies = new HashSet<>();
+//
+//    @JsonIgnore
+//    @ManyToMany(mappedBy = "insufficientActions", cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+//    private Set<Policy> insufficientActionPolicies = new HashSet<>();
+//
+//    @JsonIgnore
+//    @ManyToMany(mappedBy = "incidentActions", cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+//    private Set<Policy> incidentActionPolicies = new HashSet<>();
 
     public ActionConfig getConfig() {
         return config;
@@ -49,21 +54,21 @@ public class Action extends ProductLayerEntity<Long> {
         this.config = config;
     }
 
-    public Set<Policy> getIncidentActionPolicies() {
-        return incidentActionPolicies;
-    }
-
-    public void setIncidentActionPolicies(Set<Policy> incidentActionPolicies) {
-        this.incidentActionPolicies = incidentActionPolicies;
-    }
-
-    public Set<Policy> getInsufficientActionPolicies() {
-        return insufficientActionPolicies;
-    }
-
-    public void setInsufficientActionPolicies(Set<Policy> insufficientActionPolicies) {
-        this.insufficientActionPolicies = insufficientActionPolicies;
-    }
+//    public Set<Policy> getIncidentActionPolicies() {
+//        return incidentActionPolicies;
+//    }
+//
+//    public void setIncidentActionPolicies(Set<Policy> incidentActionPolicies) {
+//        this.incidentActionPolicies = incidentActionPolicies;
+//    }
+//
+//    public Set<Policy> getInsufficientActionPolicies() {
+//        return insufficientActionPolicies;
+//    }
+//
+//    public void setInsufficientActionPolicies(Set<Policy> insufficientActionPolicies) {
+//        this.insufficientActionPolicies = insufficientActionPolicies;
+//    }
 
     public Set<Notification> getNotifications() {
         return notifications;
@@ -73,11 +78,11 @@ public class Action extends ProductLayerEntity<Long> {
         this.notifications = notifications;
     }
 
-    public Set<Policy> getResumeActionsPolicies() {
-        return resumeActionsPolicies;
-    }
-
-    public void setResumeActionsPolicies(Set<Policy> resumeActionsPolicies) {
-        this.resumeActionsPolicies = resumeActionsPolicies;
-    }
+//    public Set<Policy> getResumeActionsPolicies() {
+//        return resumeActionsPolicies;
+//    }
+//
+//    public void setResumeActionsPolicies(Set<Policy> resumeActionsPolicies) {
+//        this.resumeActionsPolicies = resumeActionsPolicies;
+//    }
 }

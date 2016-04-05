@@ -11,6 +11,8 @@ server:
       - text/xml
       - text/plain
   context-path: /v1
+  error:
+    path: /application/error
 project:
   info:
     contact: meidongxu@baidu.com
@@ -61,7 +63,7 @@ spring:
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: true
   jackson:
-    serialization-inclusion: non_null
+    serialization-inclusion: NON_NULL
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
 security:

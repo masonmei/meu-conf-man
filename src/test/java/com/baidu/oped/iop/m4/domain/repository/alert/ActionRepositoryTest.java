@@ -8,6 +8,7 @@ import com.baidu.oped.iop.m4.domain.entity.alert.Action;
 import com.baidu.oped.iop.m4.domain.entity.alert.ActionConfig;
 import com.baidu.oped.iop.m4.domain.entity.alert.Notification;
 import com.baidu.oped.iop.m4.domain.entity.alert.TimeRange;
+import com.baidu.oped.iop.m4.domain.repository.audit.AuditHistoryRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,32 +35,41 @@ public class ActionRepositoryTest {
     @Autowired
     private ActionRepository repository;
 
+    @Autowired
+    private AuditHistoryRepository auditHistoryRepository;
+
     @Test
     public void findOneByProductNameAndName() throws Exception {
         Optional<Action> findOne = repository.findOneByProductNameAndName("productName", "action");
         assertTrue(findOne.isPresent());
-        assertEquals(100, findOne.get().getConfig().getAlertThreshold());
+        assertEquals(100, findOne.get()
+                .getConfig()
+                .getAlertThreshold());
     }
 
     @Test
     public void findByProductName() throws Exception {
         Page<Action> actions = repository.findByProductName("productName", new PageRequest(0, 10));
-        assertEquals(1, actions.getContent().size());
+        assertEquals(1, actions.getContent()
+                .size());
         actions = repository.findByProductName("productName1", new PageRequest(0, 10));
-        assertEquals(2, actions.getContent().size());
+        assertEquals(2, actions.getContent()
+                .size());
     }
 
     @Test
     public void findAll() throws Exception {
-        ActionRepository.SearchSpecification searchSpecification = new ActionRepository.SearchSpecification
-                ("productName", "sms");
+        ActionRepository.SearchSpecification searchSpecification =
+                new ActionRepository.SearchSpecification("productName", "sms");
         Page<Action> actions = repository.findAll(searchSpecification, new PageRequest(0, 10));
-        assertEquals(1, actions.getContent().size());
+        assertEquals(1, actions.getContent()
+                .size());
 
     }
 
     @Before
     public void setUp() throws Exception {
+        auditHistoryRepository.deleteAll();
         repository.deleteAll();
         Action action = new Action();
         action.setProductName("productName");

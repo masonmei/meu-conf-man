@@ -15,7 +15,9 @@ import com.baidu.oped.iop.m4.domain.entity.alert.Policy;
 import com.baidu.oped.iop.m4.domain.entity.alert.PolicyLevel;
 import com.baidu.oped.iop.m4.domain.entity.alert.Statistic;
 import com.baidu.oped.iop.m4.domain.entity.alert.TimeRange;
+import com.baidu.oped.iop.m4.domain.entity.audit.AuditHistory;
 import com.baidu.oped.iop.m4.domain.entity.common.MetricType;
+import com.baidu.oped.iop.m4.domain.repository.audit.AuditHistoryRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,8 +49,12 @@ public class PolicyRepositoryTest {
     @Autowired
     private ActionRepository actionRepository;
 
+    @Autowired
+    private AuditHistoryRepository auditHistoryRepository;
+
     @Before
     public void setUp() throws Exception {
+        auditHistoryRepository.deleteAll();
         repository.deleteAll();
         actionRepository.deleteAll();
         Action action = new Action();

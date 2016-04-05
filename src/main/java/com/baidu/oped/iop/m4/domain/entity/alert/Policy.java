@@ -3,16 +3,19 @@ package com.baidu.oped.iop.m4.domain.entity.alert;
 
 import static com.baidu.oped.iop.m4.domain.entity.alert.PolicyLevel.CRITICAL;
 
+import static javax.persistence.CascadeType.DETACH;
+import static javax.persistence.CascadeType.MERGE;
+import static javax.persistence.CascadeType.REFRESH;
 import static javax.persistence.EnumType.STRING;
 
 import com.baidu.oped.iop.m4.domain.entity.common.AppLayerEntity;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -42,15 +45,15 @@ public class Policy extends AppLayerEntity<Long> {
     @Embedded
     private Filter filter;
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToMany(cascade = {DETACH, MERGE, REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(name = "policy_resume_action")
     private Set<Action> resumeActions = new HashSet<>();
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToMany(cascade = {DETACH, MERGE, REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(name = "policy_insufficient_action")
     private Set<Action> insufficientActions = new HashSet<>();
 
-    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToMany(cascade = {DETACH, MERGE, REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(name = "policy_incident_action")
     private Set<Action> incidentActions = new HashSet<>();
 

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.baidu.oped.iop.m4.Application;
 import com.baidu.oped.iop.m4.domain.entity.common.ReceiverCallback;
+import com.baidu.oped.iop.m4.domain.repository.audit.AuditHistoryRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,8 +31,12 @@ public class ReceiverCallbackRepositoryTest {
     @Autowired
     private ReceiverCallbackRepository repository;
 
+    @Autowired
+    private AuditHistoryRepository auditHistoryRepository;
+
     @Before
     public void setUp() throws Exception {
+        auditHistoryRepository.deleteAll();
         repository.deleteAll();
         ReceiverCallback callback = new ReceiverCallback();
         callback.setProductName("productName");

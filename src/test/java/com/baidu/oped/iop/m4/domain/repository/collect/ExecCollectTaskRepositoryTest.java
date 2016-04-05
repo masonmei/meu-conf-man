@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.baidu.oped.iop.m4.Application;
 import com.baidu.oped.iop.m4.domain.entity.collect.ExecCollectTask;
+import com.baidu.oped.iop.m4.domain.repository.audit.AuditHistoryRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +29,9 @@ public class ExecCollectTaskRepositoryTest {
 
     @Autowired
     private ExecCollectTaskRepository taskRepository;
+
+    @Autowired
+    private AuditHistoryRepository auditHistoryRepository;
 
     @Test
     public void findOneByProductNameAndAppNameAndName() throws Exception {
@@ -94,6 +98,7 @@ public class ExecCollectTaskRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
+        auditHistoryRepository.deleteAll();
         taskRepository.deleteAll();
         ExecCollectTask task = new ExecCollectTask();
         task.setProductName("productName");

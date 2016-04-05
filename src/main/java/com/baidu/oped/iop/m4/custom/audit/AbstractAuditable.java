@@ -3,7 +3,6 @@ package com.baidu.oped.iop.m4.custom.audit;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Auditable;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
@@ -18,7 +17,7 @@ import javax.persistence.Version;
  * @author mason
  */
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners({AuditingEntityListener.class, RecordAuditingEntityListener.class})
 public abstract class AbstractAuditable<PK extends Serializable> extends AbstractPersistable<PK>
         implements Auditable<String, PK> {
 

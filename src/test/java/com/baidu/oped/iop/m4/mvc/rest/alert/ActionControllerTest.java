@@ -19,6 +19,7 @@ import com.baidu.oped.iop.m4.domain.entity.alert.ActionConfig;
 import com.baidu.oped.iop.m4.domain.entity.alert.Notification;
 import com.baidu.oped.iop.m4.domain.entity.alert.TimeRange;
 import com.baidu.oped.iop.m4.domain.repository.alert.ActionRepository;
+import com.baidu.oped.iop.m4.domain.repository.alert.PolicyRepository;
 import com.baidu.oped.iop.m4.mvc.dto.alert.ActionConfigDto;
 import com.baidu.oped.iop.m4.mvc.dto.alert.ActionDto;
 import com.baidu.oped.iop.m4.mvc.dto.alert.NotificationDto;
@@ -62,12 +63,16 @@ public class ActionControllerTest {
     @Autowired
     private ActionRepository repository;
 
+    @Autowired
+    private PolicyRepository policyRepository;
+
     @Before
     public void setUp() throws Exception {
         this.mvc = MockMvcBuilders.webAppContextSetup(context)
                 .addFilter(springSecurityFilterChain)
                 .build();
 
+        policyRepository.deleteAll();
         repository.deleteAll();
         for (int i = 0; i < 15; i++) {
             Action action = new Action();
@@ -116,8 +121,7 @@ public class ActionControllerTest {
         notification.setReceiverId(1L);
         notifications.add(notification);
         dto.setNotifications(notifications);
-        mvc.perform(post("/products/{productName}/actions", "productName1")
-                .accept(MediaType.APPLICATION_JSON_UTF8)
+        mvc.perform(post("/products/{productName}/actions", "productName1").accept(MediaType.APPLICATION_JSON_UTF8)
                 .with(user("user").password("123456"))
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(serialize(dto)))
@@ -128,8 +132,8 @@ public class ActionControllerTest {
 
     @Test
     public void deleteAction() throws Exception {
-        mvc.perform(delete("/products/{productName}/actions/{actionName}", "productName", "action1")
-                .with(user("user").password("123456"))
+        mvc.perform(delete("/products/{productName}/actions/{actionName}", "productName", "action1").with(
+                user("user").password("123456"))
                 .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk())
                 .andDo(print());
@@ -155,8 +159,8 @@ public class ActionControllerTest {
         notification.setReceiverId(1L);
         notifications.add(notification);
         dto.setNotifications(notifications);
-        mvc.perform(put("/products/{productName}/actions/{actionName}", "productName", "action1")
-                .accept(MediaType.APPLICATION_JSON_UTF8)
+        mvc.perform(put("/products/{productName}/actions/{actionName}", "productName", "action1").accept(
+                MediaType.APPLICATION_JSON_UTF8)
                 .with(user("user").password("123456"))
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(serialize(dto)))
@@ -167,8 +171,8 @@ public class ActionControllerTest {
 
     @Test
     public void findAction() throws Exception {
-        mvc.perform(get("/products/{productName}/actions/{actionName}", "productName", "action1")
-                .with(user("user").password("123456"))
+        mvc.perform(get("/products/{productName}/actions/{actionName}", "productName", "action1").with(
+                user("user").password("123456"))
                 .accept(MediaType.APPLICATION_JSON_UTF8)
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print())
@@ -179,8 +183,7 @@ public class ActionControllerTest {
 
     @Test
     public void findActions() throws Exception {
-        mvc.perform(get("/products/{productName}/actions", "productName")
-                .param("orderBy", "-name")
+        mvc.perform(get("/products/{productName}/actions", "productName").param("orderBy", "-name")
                 .param("pageNumber", "0")
                 .param("pageSize", "20")
                 .with(user("user").password("123456"))
@@ -193,8 +196,7 @@ public class ActionControllerTest {
                 .andExpect(jsonPath("$.data.first", is(true)))
                 .andExpect(jsonPath("$.data.last", is(true)));
 
-        mvc.perform(get("/products/{productName}/actions", "productName")
-                .param("pageNumber", "1")
+        mvc.perform(get("/products/{productName}/actions", "productName").param("pageNumber", "1")
                 .param("pageSize", "20")
                 .with(user("user").password("123456"))
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -206,8 +208,7 @@ public class ActionControllerTest {
                 .andExpect(jsonPath("$.data.first", is(false)))
                 .andExpect(jsonPath("$.data.last", is(true)));
 
-        mvc.perform(get("/products/{productName}/actions", "productName")
-                .param("query", "name:action1")
+        mvc.perform(get("/products/{productName}/actions", "productName").param("query", "name:action1")
                 .param("pageNumber", "0")
                 .param("pageSize", "20")
                 .with(user("user").password("123456"))
@@ -220,8 +221,7 @@ public class ActionControllerTest {
                 .andExpect(jsonPath("$.data.first", is(true)))
                 .andExpect(jsonPath("$.data.last", is(true)));
 
-        mvc.perform(get("/products/{productName}/actions", "productName", "appName")
-                .param("query", "action1")
+        mvc.perform(get("/products/{productName}/actions", "productName", "appName").param("query", "action1")
                 .param("pageNumber", "0")
                 .param("pageSize", "20")
                 .with(user("user").password("123456"))

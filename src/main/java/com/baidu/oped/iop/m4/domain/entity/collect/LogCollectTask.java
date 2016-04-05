@@ -30,6 +30,7 @@ public class LogCollectTask extends AbstractCollectTask<Long> {
     private String method = "logmon";
 
     @Column(length = 1024)
+    @JsonIgnore
     private String comment;
 
     @JsonIgnore

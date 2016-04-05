@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn;
  */
 @Embeddable
 public class ActionConfig {
-    @ElementCollection(targetClass = TimeRange.class, fetch = FetchType.LAZY)
+    @ElementCollection(targetClass = TimeRange.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "action_config_disabled_times", joinColumns = {@JoinColumn(name = "action_config_id")})
     private Set<TimeRange> disabledTimes;
 

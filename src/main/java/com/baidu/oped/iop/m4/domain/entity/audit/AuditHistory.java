@@ -2,9 +2,8 @@ package com.baidu.oped.iop.m4.domain.entity.audit;
 
 import static javax.persistence.EnumType.STRING;
 
+import com.baidu.oped.iop.m4.custom.audit.AbstractPersistable;
 import com.baidu.oped.iop.m4.utils.JacksonUtils;
-
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import java.util.Date;
 import javax.persistence.Basic;
@@ -38,7 +37,7 @@ public class AuditHistory extends AbstractPersistable<Long> {
 
     @NotNull
     @Column(name = "`app_name`", length = 128, nullable = false)
-    private String appName;
+    private String appName = "";
 
     private String author;
 
@@ -56,7 +55,7 @@ public class AuditHistory extends AbstractPersistable<Long> {
     @Lob
     private String details;
 
-    private int version;
+    private Long version;
 
     public ActionType getAction() {
         return action;
@@ -126,11 +125,11 @@ public class AuditHistory extends AbstractPersistable<Long> {
         this.productName = productName;
     }
 
-    public int getVersion() {
+    public Long getVersion() {
         return version;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(Long version) {
         this.version = version;
     }
 

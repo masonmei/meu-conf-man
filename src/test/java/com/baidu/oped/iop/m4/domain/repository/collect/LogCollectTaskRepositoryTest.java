@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import com.baidu.oped.iop.m4.Application;
 import com.baidu.oped.iop.m4.domain.entity.collect.LogCollectTask;
 import com.baidu.oped.iop.m4.domain.entity.collect.LogTaskParam;
+import com.baidu.oped.iop.m4.domain.repository.audit.AuditHistoryRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +29,9 @@ import java.util.Optional;
 public class LogCollectTaskRepositoryTest {
     @Autowired
     private LogCollectTaskRepository taskRepository;
+
+    @Autowired
+    private AuditHistoryRepository auditHistoryRepository;
 
     @Test
     public void findOneByProductNameAndAppNameAndName() throws Exception {
@@ -96,6 +100,7 @@ public class LogCollectTaskRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
+        auditHistoryRepository.deleteAll();
         taskRepository.deleteAll();
         LogCollectTask task = new LogCollectTask();
         task.setProductName("productName");

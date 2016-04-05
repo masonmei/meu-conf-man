@@ -14,7 +14,7 @@ import java.util.Date;
 public class AuditHistoryDto implements Dto<AuditHistory> {
 
     private Long id;
-    private int version;
+    private Long version;
     private String productName;
     private String appName;
     private String name;
@@ -56,11 +56,11 @@ public class AuditHistoryDto implements Dto<AuditHistory> {
         this.productName = productName;
     }
 
-    public int getVersion() {
+    public Long getVersion() {
         return version;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(Long version) {
         this.version = version;
     }
 

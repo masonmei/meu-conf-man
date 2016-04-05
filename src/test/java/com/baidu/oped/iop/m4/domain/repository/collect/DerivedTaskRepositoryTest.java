@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.baidu.oped.iop.m4.Application;
 import com.baidu.oped.iop.m4.domain.entity.collect.DerivedTask;
+import com.baidu.oped.iop.m4.domain.repository.audit.AuditHistoryRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +28,9 @@ import java.util.Optional;
 public class DerivedTaskRepositoryTest {
     @Autowired
     private DerivedTaskRepository taskRepository;
+
+    @Autowired
+    private AuditHistoryRepository auditHistoryRepository;
 
     @Test
     public void findOneByProductNameAndAppNameAndName() throws Exception {
@@ -92,6 +96,7 @@ public class DerivedTaskRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
+        auditHistoryRepository.deleteAll();
         taskRepository.deleteAll();
         DerivedTask task = new DerivedTask();
         task.setProductName("productName");

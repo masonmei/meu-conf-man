@@ -8,6 +8,7 @@ import static com.baidu.oped.sia.boot.utils.Constrains.Profile.TEST;
 import static com.baidu.oped.sia.boot.utils.Constrains.SERVER_PORT;
 
 import com.baidu.oped.sia.boot.common.NormalizationResponseBodyAdvice;
+import com.baidu.oped.sia.boot.exception.RestSystemExceptionHandler;
 import com.baidu.oped.sia.boot.exception.SystemExceptionHandler;
 
 import org.slf4j.Logger;
@@ -20,7 +21,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -36,7 +36,6 @@ import javax.annotation.PostConstruct;
  */
 @SpringBootApplication(exclude = {ErrorMvcAutoConfiguration.class})
 @EnableJpaRepositories("com.baidu.oped.iop.m4.domain.repository")
-@EnableRedisHttpSession
 public class Application {
     private static final Logger LOG = LoggerFactory.getLogger(Application.class);
 
@@ -89,8 +88,8 @@ public class Application {
     }
 
     @Bean
-    public SystemExceptionHandler exceptionHandler() {
-        return new SystemExceptionHandler();
+    public RestSystemExceptionHandler exceptionHandler() {
+        return new RestSystemExceptionHandler();
     }
 
     @Bean

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.Table;
 
@@ -21,7 +22,7 @@ public class ReceiverGroup extends AbstractReceiver<Long> implements Receiver {
 
     private String description;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Set<String> members = new HashSet<>();
 
     public String getDescription() {
